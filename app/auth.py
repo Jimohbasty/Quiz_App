@@ -1,13 +1,11 @@
-from flask import Blueprint, render_template, url_for, flash
+from flask import Blueprint, render_template, url_for, flash,session
 from flask_login import login_user
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from app import db
 bp = Blueprint("auth",__name__)
 
-@bp.route("/")
-def index():
-    return render_template("index.html")
+
 
 @bp.route("/login", methods = ["POST", "GET"])
 def login():
@@ -16,7 +14,9 @@ def login():
         user = User.query.filter_by(email = form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user)
-            return "God is really good"
+            session['user_id'] = user.id
+            session['score'] = 0
+            return  str(session['user_id'])
         else:
             return "God is most wonderful"
     return render_template("login.html", form = form)

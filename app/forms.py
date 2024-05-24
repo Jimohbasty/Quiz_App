@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField,BooleanField
+from wtforms import StringField, PasswordField, SubmitField,BooleanField, RadioField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 class RegistrationForm(FlaskForm):
     """
@@ -17,3 +17,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class QuestionsForm():
+    options = RadioField('Options', validators=[DataRequired()],
+                        default=1)
+    submit = SubmitField('Next')                       
