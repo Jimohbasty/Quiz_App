@@ -22,6 +22,10 @@ def login():
     return render_template("login.html", form = form)
 
 
+@bp.route("/logout")
+def logout():
+    return render_template("index.html")
+
 @bp.route("/register", methods = ["POST", "GET"])
 def register():
     form = RegistrationForm()
@@ -42,8 +46,6 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        return("Userinfo save successfully")
         flash('Your account has been created! You can now log in.', 'success')
         return redirect(url_for('auth.login'))
     return render_template("register.html", form = form)
-
