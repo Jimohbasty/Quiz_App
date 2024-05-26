@@ -18,7 +18,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class QuestionsForm():
+class QuestionsForm(FlaskForm):
     options = RadioField('Options', validators=[DataRequired()],
                         default=1)
     submit = SubmitField('Next')                       

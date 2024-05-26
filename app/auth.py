@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, flash,session
+from flask import Blueprint, render_template, url_for, flash,session, redirect
 from flask_login import login_user
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
@@ -16,7 +16,7 @@ def login():
             login_user(user)
             session['user_id'] = user.id
             session['score'] = 0
-            return  str(session['user_id'])
+            return redirect(url_for("route.question", id = 1))
         else:
             return "God is most wonderful"
     return render_template("login.html", form = form)
