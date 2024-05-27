@@ -1,11 +1,17 @@
-from flask import Blueprint, render_template, url_for, flash,session, redirect
+from flask import Blueprint, g,render_template, url_for, flash,session, redirect
 from flask_login import login_user, logout_user
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from app import db
 bp = Blueprint("auth",__name__)
 
+@bp.before_request
+def before_request():
+    g.user = None
+    if 'user_id' in session:
+        user = User.query.filter_by(id = session['user_id']).first()
 
+        g.user = user
 
 @bp.route("/login", methods = ["POST", "GET"])
 def login():
@@ -21,6 +27,7 @@ def login():
             login_user(user)
             session['user_id'] = user.id
             session['score'] = 0
+ 
             return render_template("profile.html", user = user)
             # return redirect(url_for("route.question", id = 1))
         else:

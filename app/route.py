@@ -10,7 +10,9 @@ TOTAL_ALLOWED_TIME = 20
 def index():
     return render_template("index.html")
 
-
+@bp.route("/instruction")
+def instruction():
+    return render_template("instruction.html")
 @bp.route("/question/<int:id>", methods=["POST", "GET"])
 def question(id):
     if 'score' not in session:
@@ -41,7 +43,7 @@ def question(id):
     elapsed_time = time.time() - session['start_time']
     remaining_time = TOTAL_ALLOWED_TIME - elapsed_time
     if remaining_time <= 0:
-        return redirect(url_for('score'))
+        return redirect(url_for('route.score'))
 
     return render_template("questions.html", form=form, questions=questions, remaining_time=remaining_time, total_allowed_time=TOTAL_ALLOWED_TIME)
 

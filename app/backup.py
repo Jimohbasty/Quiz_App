@@ -152,3 +152,22 @@ base
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    {% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quiz Completed</h5>
+                    <p class="card-text">Your final score is: {{ score }}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
