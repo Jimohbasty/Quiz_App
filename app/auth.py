@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, flash,session, redirect
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from app import db
@@ -12,18 +12,27 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
+        # if user is None:
+        #     flash("Account does not exit")
+        #     return render_template("login.html", form = form)
+        # if not user.check_password(form.password.data):
+        #     flash("Incorrect password")
         if user and user.check_password(form.password.data):
             login_user(user)
             session['user_id'] = user.id
             session['score'] = 0
-            return redirect(url_for("route.question", id = 1))
+            return render_template("profile.html", user = user)
+            # return redirect(url_for("route.question", id = 1))
         else:
-            return "God is most wonderful"
+            flash("Incorrect password or username")
     return render_template("login.html", form = form)
 
 
 @bp.route("/logout")
 def logout():
+    session.pop('user_id', None)
+    session.pop('score', None)
+    logout_user()
     return render_template("index.html")
 
 @bp.route("/register", methods = ["POST", "GET"])
@@ -49,3 +58,7 @@ def register():
         flash('Your account has been created! You can now log in.', 'success')
         return redirect(url_for('auth.login'))
     return render_template("register.html", form = form)
+
+@bp.route("/profile")
+def profile():
+    return render_template("profile.html")
