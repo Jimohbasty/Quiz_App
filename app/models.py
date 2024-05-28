@@ -8,6 +8,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password_hash = db.Column(db.String(150), nullable=False)
+    is_admin = db.Column(db.Integer, default = 0, nullable=False)
+    scores = db.relationship('Score', backref='user', lazy=True)
 
     def set_password(self, password):
         """
@@ -32,3 +34,10 @@ class Questions(db.Model):
 
     def __repr__(self):
         return '<Question: {}>'.format(self.ques)
+
+class Score(db.Model):
+    """
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    score = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
