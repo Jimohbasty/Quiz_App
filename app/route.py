@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 from app.forms import QuestionsForm
-from app.models import Questions
+from app.models import Questions, Score
 from flask_login import login_required
 from datetime import datetime
 import time
+from app import db
 bp = Blueprint("route",__name__ )
 # Define total allowed time in seconds, e.g., 600 seconds for 10 minutes
 TOTAL_ALLOWED_TIME = 20
@@ -55,6 +56,11 @@ def question(id):
 @login_required
 def score():
     final_score = session.get('score', 0)
-    session.pop('score', None)
+    user_id = session.get('user_id', None)
+    user_score = Score(score = final_score, user_id = user_id)
+
+    db.session.add(user_score)
+    db.session.commit()
+    # session.pop('score', None)
     session.pop('start_time', None)
-    return render_template("score.html", score=final_score)
+    return render_template("score.html", score=final_score, user= user_id)

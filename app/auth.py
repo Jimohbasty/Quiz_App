@@ -72,4 +72,4 @@ def profile():
     if g.user:
         score = request.args.get('score')
         g.score = score
-        return render_template("profile.html")
+        return render_template("profile.html", user = g.user)
