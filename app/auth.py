@@ -1,5 +1,5 @@
-from flask import Blueprint, g,render_template, url_for, flash,session, redirect
-from flask_login import login_user, logout_user
+from flask import Blueprint, g,render_template, url_for, flash,session, redirect, request
+from flask_login import login_user, logout_user, login_required
 from app.forms import RegistrationForm, LoginForm
 from app.models import User
 from app import db
@@ -67,5 +67,9 @@ def register():
     return render_template("register.html", form = form)
 
 @bp.route("/profile")
+@login_required
 def profile():
-    return render_template("profile.html")
+    if g.user:
+        score = request.args.get('score')
+        g.score = score
+        return render_template("profile.html")

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 from app.forms import QuestionsForm
 from app.models import Questions
+from flask_login import login_required
 from datetime import datetime
 import time
 bp = Blueprint("route",__name__ )
@@ -11,9 +12,12 @@ def index():
     return render_template("index.html")
 
 @bp.route("/instruction")
+@login_required
 def instruction():
     return render_template("instruction.html")
+    
 @bp.route("/question/<int:id>", methods=["POST", "GET"])
+@login_required
 def question(id):
     if 'score' not in session:
         session['score'] = 0
@@ -48,6 +52,7 @@ def question(id):
     return render_template("questions.html", form=form, questions=questions, remaining_time=remaining_time, total_allowed_time=TOTAL_ALLOWED_TIME)
 
 @bp.route("/score")
+@login_required
 def score():
     final_score = session.get('score', 0)
     session.pop('score', None)
