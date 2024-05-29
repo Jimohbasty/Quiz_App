@@ -7,7 +7,7 @@ import time
 from app import db
 bp = Blueprint("route",__name__ )
 # Define total allowed time in seconds, e.g., 600 seconds for 10 minutes
-TOTAL_ALLOWED_TIME = 20
+TOTAL_ALLOWED_TIME = 300
 @bp.route("/")
 def index():
     return render_template("index.html")
