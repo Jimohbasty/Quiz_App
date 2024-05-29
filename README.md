@@ -19,9 +19,7 @@ Table of contents
 ## About the Project
 
 Preview:
-
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sP0Auig9cok?si=jRLMLYjtTZD0OCCF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![YouTube](http://i.ytimg.com/vi/sP0Auig9cok/hqdefault.jpg)](https://www.youtube.com/watch?v=sP0Auig9cok)
 
 
 This project is a fully responsive Quiz App built using Python's Flask for the backend and Bootstrap.
