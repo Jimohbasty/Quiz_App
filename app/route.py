@@ -61,6 +61,6 @@ def score():
 
     db.session.add(user_score)
     db.session.commit()
-    # session.pop('score', None)
+    session.pop('score', None)
     session.pop('start_time', None)
     return render_template("score.html", score=final_score, user= user_id)
